@@ -3,6 +3,8 @@
 简体中文 | [English](README.md)
 
 这是一个非官方、开源的 **HP LaserJet Professional M1136 MFP** 打印解决方案。它用 Ghostscript 和 OpenPrinting `foo2zjs` 项目的 `foo2xqx`，替代已经无法在新版 macOS 上正常工作的 HP 旧版 host-based 打印链路。
+其他惠普Hp型号可以在 “## 可能适配的型号”中查看是否存在，但是因为没有验证所以不能保证可以运行和使用。
+类似型号也可以复制信息的转换流程来自行尝试。
 
 ## 我们实际解决并测试的机型
 
@@ -18,8 +20,9 @@
 
 1. 下载 [`HP-LaserJet-M1136-macOS26-arm64.pkg`](dist/HP-LaserJet-M1136-macOS26-arm64.pkg)。
 2. 对照 [`checksums/SHA256SUMS`](checksums/SHA256SUMS) 验证 SHA-256。
-3. 用 USB 连接 M1136、打开打印机电源，再以管理员身份运行安装包。
-4. 如果安装时打印机没有连接，之后连接好并执行：
+3. **please**用 USB 连接上打印机、记得打开打印机电源，再以管理员身份运行安装包（或 系统设置 -->隐私与安全设置 --> 仍要打开）运行安装包。
+===注意：自行斟酌风险===
+5. 如果安装时打印机没有连接，之后连接好并执行：
 
    ```sh
    sudo /Library/Printers/hp-m1136/configure-printer.sh
@@ -80,7 +83,5 @@ lpstat -t
 - 运行时打包参考：[ardabeh/hp-legacy-mac](https://github.com/ardabeh/hp-legacy-mac)，提交 `fff005c`
 - 内置 Ghostscript：10.07.1
 - 本次构建使用的上游运行时归档 SHA-256：`60c133b5a53fcce4a4364e1da53d8815cf6b14549e4eba2e88f567fdb6ee950b`
-
-发布前已扫描仓库和安装包，不会主动包含本机用户名、用户目录、打印机序列号、机器标识、凭据、令牌或安装日志。
 
 项目胶水代码和源自 `foo2zjs` 的文件按 GPL-2.0 发布，见 [`LICENSE`](LICENSE) 和 [`LICENSES/GPL-2.0.txt`](LICENSES/GPL-2.0.txt)。Ghostscript 按 AGPL-3.0-or-later 发布，见 [`LICENSES/AGPL-3.0.txt`](LICENSES/AGPL-3.0.txt) 与 [`THIRD_PARTY.md`](THIRD_PARTY.md)。本项目与 HP、Apple、OpenPrinting、Artifex 均无隶属关系，不提供任何担保。
