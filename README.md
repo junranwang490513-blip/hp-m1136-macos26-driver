@@ -81,6 +81,5 @@ When reporting another model, include the model name, macOS version, Mac archite
 - Bundled Ghostscript: 10.07.1
 - Upstream runtime archive used during this build: SHA-256 `60c133b5a53fcce4a4364e1da53d8815cf6b14549e4eba2e88f567fdb6ee950b`
 
-No local username, home path, printer serial number, machine identifier, credential, token or installation log is intentionally included. The package contents and public repository were scanned for those values before release.
 
 Project glue and `foo2zjs`-derived files are distributed under GPL-2.0; see [`LICENSE`](LICENSE) and [`LICENSES/GPL-2.0.txt`](LICENSES/GPL-2.0.txt). Ghostscript is distributed under AGPL-3.0-or-later; see [`LICENSES/AGPL-3.0.txt`](LICENSES/AGPL-3.0.txt) and [`THIRD_PARTY.md`](THIRD_PARTY.md). This project is unaffiliated with HP, Apple, OpenPrinting or Artifex and is provided without warranty.
