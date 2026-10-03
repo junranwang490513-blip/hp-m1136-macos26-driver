@@ -1,0 +1,33 @@
+#!/bin/sh
+set -eu
+
+BASE=/Library/Printers/hp-m1136
+LOG=/var/log/hp-m1136-driver-install.log
+
+exec >>"$LOG" 2>&1
+echo "[$(date)] Installing HP LaserJet Professional M1136 MFP driver"
+
+chown -R root:wheel "$BASE"
+chmod 755 "$BASE" "$BASE/bin" "$BASE/cups-filter" "$BASE/configure-printer.sh"
+chmod 755 "$BASE"/bin/*
+
+if "$BASE/configure-printer.sh"; then
+    STATUS=0
+else
+    STATUS=$?
+fi
+
+if [ "$STATUS" -eq 2 ]; then
+    echo "Driver files installed. Printer was not connected, so queue creation was deferred."
+    echo "After connecting the printer, run: sudo $BASE/configure-printer.sh"
+    echo "[$(date)] Driver installation complete; queue pending"
+    exit 0
+fi
+
+if [ "$STATUS" -ne 0 ]; then
+    echo "Printer queue configuration failed with status $STATUS."
+    exit "$STATUS"
+fi
+
+echo "[$(date)] Driver installation and queue configuration complete"
+exit 0

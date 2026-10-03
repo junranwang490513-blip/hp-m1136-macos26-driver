@@ -1,0 +1,45 @@
+#!/bin/sh
+# CUPS PDF filter for HP LaserJet Professional M1136 MFP on modern macOS.
+
+BASE=/Library/Printers/hp-m1136
+export PATH="$BASE/bin:/usr/bin:/bin"
+export GS_LIB="$BASE/share/ghostscript/Resource/Init:$BASE/share/ghostscript/lib:$BASE/share/ghostscript/Resource/Font:$BASE/share/ghostscript/fonts"
+
+PAPER=9
+RESOLUTION=1200x600
+SOURCE=7
+MEDIA=1
+DUPLEX=1
+DENSITY=3
+DRAFT=
+
+case " $5 " in *" PageSize=Letter "*) PAPER=1 ;; esac
+case " $5 " in *" PageSize=Legal "*) PAPER=5 ;; esac
+case " $5 " in *" PageSize=Executive "*) PAPER=7 ;; esac
+case " $5 " in *" PageSize=A4 "*) PAPER=9 ;; esac
+case " $5 " in *" PageSize=A5 "*) PAPER=11 ;; esac
+case " $5 " in *" PageSize=B5 "*) PAPER=13 ;; esac
+case " $5 " in *" PageSize=Env10 "*) PAPER=20 ;; esac
+case " $5 " in *" PageSize=EnvDL "*) PAPER=27 ;; esac
+case " $5 " in *" PageSize=EnvC5 "*) PAPER=28 ;; esac
+case " $5 " in *" PageSize=EnvISOB5 "*) PAPER=34 ;; esac
+case " $5 " in *" PageSize=EnvMonarch "*) PAPER=37 ;; esac
+
+case " $5 " in *" Resolution=600x600dpi "*) RESOLUTION=600x600 ;; esac
+case " $5 " in *" Resolution=1200x600dpi "*) RESOLUTION=1200x600 ;; esac
+case " $5 " in *" InputSlot=Tray1 "*) SOURCE=1 ;; esac
+case " $5 " in *" InputSlot=Manual "*) SOURCE=4 ;; esac
+case " $5 " in *" Duplex=DuplexNoTumble "*) DUPLEX=2 ;; esac
+case " $5 " in *" Duplex=DuplexTumble "*) DUPLEX=3 ;; esac
+case " $5 " in *" Quality=draft "*) DRAFT=-t ;; esac
+
+case " $5 " in *" Density=1 "*) DENSITY=1 ;; esac
+case " $5 " in *" Density=2 "*) DENSITY=2 ;; esac
+case " $5 " in *" Density=4 "*) DENSITY=4 ;; esac
+case " $5 " in *" Density=5 "*) DENSITY=5 ;; esac
+
+if [ -n "$6" ]; then
+    exec "$BASE/bin/foo2xqx-wrapper" -b "$BASE/bin/gs" -p "$PAPER" -r "$RESOLUTION" -s "$SOURCE" -m "$MEDIA" -d "$DUPLEX" -T "$DENSITY" -n "$4" $DRAFT < "$6"
+else
+    exec "$BASE/bin/foo2xqx-wrapper" -b "$BASE/bin/gs" -p "$PAPER" -r "$RESOLUTION" -s "$SOURCE" -m "$MEDIA" -d "$DUPLEX" -T "$DENSITY" -n "$4" $DRAFT
+fi

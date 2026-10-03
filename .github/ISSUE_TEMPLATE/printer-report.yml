@@ -1,0 +1,35 @@
+name: Printer compatibility report
+description: Report a test without posting private device identifiers.
+title: "[printer] "
+labels: [compatibility]
+body:
+  - type: markdown
+    attributes:
+      value: "Remove serial numbers, usernames, tokens and private paths from all logs before posting."
+  - type: input
+    id: model
+    attributes:
+      label: Exact printer model
+    validations:
+      required: true
+  - type: input
+    id: macos
+    attributes:
+      label: macOS version and Mac architecture
+      placeholder: "macOS 26.1, Apple Silicon arm64"
+    validations:
+      required: true
+  - type: dropdown
+    id: connection
+    attributes:
+      label: Connection
+      options: [USB, Network, Other]
+    validations:
+      required: true
+  - type: textarea
+    id: result
+    attributes:
+      label: Test result and redacted logs
+      description: State what printed, failed, or became garbled. Do not include a serial number.
+    validations:
+      required: true

@@ -1,0 +1,14 @@
+#!/bin/sh
+set -eu
+
+if [ "$(uname -s)" != "Darwin" ]; then
+    echo "This package is for macOS only."
+    exit 1
+fi
+
+if [ "$(uname -m)" != "arm64" ]; then
+    echo "This package requires an Apple Silicon Mac."
+    exit 1
+fi
+
+exit 0
